@@ -13,17 +13,11 @@ const pool = mysql.createPool({
 });
 
 app.get("/", (req, res) => {
-  pool.getConnection((err, connection) => {
+  pool.query("select * from categories", (err, categories) => {
     if (err) {
       res.status(500).send(err);
     } else {
-      pool.query("select * from categories", (err, categories) => {
-        if (err) {
-          res.status(500).send(err);
-        } else {
-          res.status(200).send(categories);
-        }
-      });
+      res.status(200).send(categories);
     }
   });
 });
