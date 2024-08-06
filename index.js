@@ -5,14 +5,20 @@ const cors = require("cors");
 const users = require("./routes/users");
 const app = express();
 const PORT = 5001;
-const bodyParser = require("body-parser");
 
+// Use CORS middleware
 app.use(cors());
-app.use(bodyParser);
+
+// Use express.json() and express.urlencoded() instead of body-parser
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Define routes
 app.use("/productCategories", productCategories);
 app.use("/products", products);
 app.use("/users", users);
 
+// Start the server
 const server = app.listen(PORT, () => {
-  console.log("App is running in the port - 5001");
+  console.log(`App is running on port ${PORT}`);
 });
